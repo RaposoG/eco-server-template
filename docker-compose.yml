@@ -1,0 +1,31 @@
+name: eco-server
+
+services:
+  eco:
+    image: strangeloopgames/eco-game-server:${ECO_VERSION:-latest}
+    container_name: eco-server
+    restart: unless-stopped
+    # The server refuses to boot without authentication, and the image ships
+    # steamclient.so in /app but Steamworks looks for it in ~/.steam/sdk64.
+    # The symlink is what the official install.sh does; the image skips that step.
+    command: >
+      sh -c "mkdir -p /root/.steam/sdk64 &&
+      ln -sf /app/steamclient.so /root/.steam/sdk64/steamclient.so &&
+      exec ./EcoServer --nogui ${ECO_AUTH:--offline}"
+    # Eco saves the world on SIGTERM — give it room to finish.
+    stop_grace_period: 120s
+    ports:
+      - "${GAME_PORT:-3000}:3000/udp"   # game
+      - "${WEB_PORT:-3001}:3001/tcp"    # web UI / API
+      # - "3002:3002/tcp"               # RCON (set RconPassword in Network.eco first)
+      # - "3003:3003/udp"               # Steam query, needed for the Steam server browser
+    volumes:
+      - eco-storage:/app/Storage
+      - eco-configs:/app/Configs
+    # ponytail: /app/Mods is deliberately NOT mounted — the image keeps the game's
+    # own content there, so an empty volume would wipe the server.
+    # For mods, mount the subfolder only: - eco-mods:/app/Mods/UserCode
+
+volumes:
+  eco-storage:
+  eco-configs:
