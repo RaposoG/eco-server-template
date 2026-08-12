@@ -1,0 +1,8 @@
+# Individual files deleted after extraction, and why. Paths are relative to
+# Mods/UserCode. Use this when a mod is worth keeping but ships one broken file —
+# mods-excluded.txt is for dropping a mod entirely.
+
+# animal-husbandry-reloaded ships the same mod twice: the misspelled copy is the
+# older one and no longer compiles (CraftingElement[] where GarbageOutput[] is
+# expected), and having both defines every member twice.
+AnimalHusbandry/Recipe/GeneticallyMofidySheep.cs

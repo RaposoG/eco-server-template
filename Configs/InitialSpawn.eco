@@ -1,0 +1,18 @@
+{
+  "MinutesBetweenUpdates": 30.0,
+  "CombineInitialSpawnPointsAtPercentOfWorldDistance": 0.1,
+  "DisplayOnlySettlements": false,
+  "DisplayOnlyAdditionalSpawnPoints": false,
+  "AdditionalSpawnPoints": [{
+    "Enabled": true,
+    "Position": {
+      "x": 360,
+      "y": 0,
+      "z": 360
+    },
+    "Name": "Capital BBC-BRASIL",
+    "Description": "Centro do mundo e ponto de encontro do servidor. Comece aqui para ficar perto de todo mundo.",
+    "Color": "FFFFFFFF",
+    "Priority": 100
+  }]
+}

@@ -1,1 +1,16 @@
 .env
+
+# Written by the server on first boot and carries this server's identity (ID and
+# Passport) — publishing those lets someone else claim your server. Ships as
+# Configs/Network.eco.example instead, which the entrypoint copies if it is missing.
+Configs/Network.eco
+
+# Runtime state the server writes into the config folder.
+Configs/Users.eco
+
+# Downloaded mods. Configs/ModKit.eco lists the mod IDs and
+# scripts/fetch-mods.sh reproduces both folders, so there is no reason to commit
+# a few hundred MB of other people's work. Delete these two lines if you want to
+# ship a repo with the mods included.
+mods/
+mods-installed/

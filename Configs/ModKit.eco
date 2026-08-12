@@ -1,0 +1,44 @@
+{
+  "WhitelistEnabled": false,
+  "Whitelist": {
+    "System.String": {
+      "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
+      "$values": []
+    }
+  },
+  "LiveUpdateUnityFiles": false,
+  "SubscribedMods": {
+    "System.Int32": {
+      "$type": "System.Collections.Generic.List`1[[System.Int32, System.Private.CoreLib]], System.Private.CoreLib",
+      "$values": [
+        6241895,
+        2986477,
+        5168429,
+        2828253,
+        3593204,
+        3294383,
+        2057641,
+        118291,
+        5309152,
+        4478064,
+        797352,
+        4286010,
+        3851329,
+        4129480,
+        136025,
+        4891722,
+        6286258,
+        6047164,
+        6244454,
+        6285908,
+        4619048,
+        4055163,
+        3530387,
+        4358905,
+        4314268
+      ]
+    }
+  },
+  "PreserveGeneratedModsAssembly": false,
+  "MaxNumberOfDownloadRequests": 10
+}

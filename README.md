@@ -38,45 +38,59 @@ Then:
 
 Everything is driven by `.env`:
 
-| Variable      | Default    | What it does                                                     |
-|---------------|------------|------------------------------------------------------------------|
-| `ECO_VERSION` | `latest`   | Image tag. Pin it (e.g. `0.14.0.2-beta`) to control when you update. |
-| `ECO_AUTH`    | `-offline` | Authentication mode — see below.                                  |
-| `GAME_PORT`   | `3000`     | Host port for the game (UDP).                                     |
-| `WEB_PORT`    | `3001`     | Host port for the web UI (TCP).                                   |
+| Variable      | Default  | What it does                                                       |
+|---------------|----------|--------------------------------------------------------------------|
+| `ECO_VERSION` | `latest` | Image tag. Pin it (e.g. `0.14.0.2-beta`) to control when you update. |
+| `ECO_TOKEN`   | empty    | Your Eco user token — see below.                                    |
+| `GAME_PORT`   | `3000`   | Host port for the game (UDP).                                       |
+| `WEB_PORT`    | `3001`   | Host port for the web UI (TCP).                                     |
 
 ### Authentication
 
-The server **refuses to start** without one of these. `-offline` is the default
-because it needs no account, but an offline server never shows up in the public
-server browser.
+The server **refuses to start** without authentication, so this template falls
+back to offline mode when `ECO_TOKEN` is empty. Offline works for a private
+server, but it is not listed publicly and **cannot download mods from mod.io**.
+
+For everything else, grab your token at <https://play.eco/account> and put the
+value alone in `.env` — no flag, no quotes:
 
 ```ini
-ECO_AUTH=-offline                          # no account, not publicly listed
-ECO_AUTH=-userToken=YOUR_TOKEN             # token from https://play.eco/account
-ECO_AUTH=-username=USER -password=SECRET   # alternative to the token
+ECO_TOKEN=your_token_here
 ```
 
-`.env` is gitignored — keep your token there, not in `docker-compose.yml`.
+`.env` is gitignored, and the token reaches the container as an environment
+variable rather than a command-line argument, so it stays out of `docker inspect`
+and `ps` output.
 
 ### Game settings
 
-Game settings live in the `eco-configs` volume as `.eco` files (server name,
-password, world size, difficulty, ...). The image seeds it with `.eco.template`
-files on first start; the server writes the real `.eco` files next to them.
-
-Edit one:
+Game settings are plain JSON in `./Configs`, bind-mounted into the container.
+Edit a file, `docker compose restart`, done — no volume gymnastics.
 
 ```bash
-docker compose cp eco:/app/Configs/Network.eco ./Network.eco
-# edit Network.eco — e.g. "Name" and "Password"
-docker compose cp ./Network.eco eco:/app/Configs/Network.eco
+$EDITOR Configs/Difficulty.eco
 docker compose restart
 ```
 
-`Network.eco` holds the server name, password and ports. `Difficulty.eco`,
-`WorldGenerator.eco` and `Features.eco` cover most of the rest. Changing world
-generation only takes effect on a fresh world.
+`Network.eco` holds the server name, description, password and ports.
+`Difficulty.eco` holds the meteor timer and every progression multiplier.
+`WorldGenerator.eco` controls world size and terrain, and only takes effect on a
+fresh world. Some `Difficulty.eco` values are read at every start and others are
+fixed when the world is created, so change them before generating a world you
+intend to keep.
+
+The `.eco.template` files next to them are the server's own defaults: useful to
+diff against when you want to know what you changed.
+
+`Configs/Network.eco` is gitignored because the server writes an `ID` and a
+`Passport` into it that identify your server to Strange Cloud. The repo ships
+`Network.eco.example`, and the entrypoint copies it on a fresh checkout.
+
+This template comes tuned rather than vanilla — meteor at 90 days, halved craft
+resources, craft time and skill cost, doubled stack sizes, growth rate, fuel
+efficiency and shelf life, halved item weight, exhaustion off, and full
+specialty refunds. Reset any of it by copying the value back from the matching
+`.eco.template`.
 
 ### Admin access and the server UI
 
@@ -106,6 +120,47 @@ docker compose restart
 
 The web UI on port 3001 is the **World UI** — map layers, ecosystem graphs,
 elections and officials. It is not a configuration panel.
+
+### Mods
+
+The server does **not** download mods from mod.io — `SubscribedMods` in
+`ModKit.eco` only tells connecting clients what to fetch. Server-side, a mod is
+files in `Mods/`, so this template downloads and installs them for you:
+
+```bash
+scripts/fetch-mods.sh
+docker compose up -d --force-recreate
+```
+
+It reads the mod IDs from `Configs/ModKit.eco`, pulls each archive from mod.io
+into `./mods`, and lays the files out under `./mods-installed`, which the
+container copies into `/app` on every start. That survives `--force-recreate` and
+image updates, unlike installing into a volume.
+
+To add a mod, put its numeric ID in `Configs/ModKit.eco` — it is the number in
+the mod's image URLs on its mod.io page — and re-run the script. `MODIO_API_KEY`
+in `.env` is only used to resolve each mod's current file; the download URL that
+comes back is pre-signed.
+
+Eco mods are packaged inconsistently, so the script also does what a human
+otherwise does by hand:
+
+- picks the right extraction root per archive (three layouts are in use)
+- relocates whole-file `.override.cs` replacements onto the path the game
+  matches them against, while leaving `ModsPreInitialize` partials alone
+- keeps one language folder per mod (`MODS_LANG`, default `English`) — mods that
+  ship several compile all of them and collide
+- skips `.ecobp` blueprints, which are not server mods
+
+Two curation files carry the decisions that cannot be automated, each entry with
+the compiler error that justifies it:
+
+- `mods-excluded.txt` — mods dropped entirely, mostly built against older Eco APIs
+- `mods-remove.txt` — single broken files inside mods that are otherwise fine
+
+A mod that fails to compile inside `Mods/UserCode` is survivable; one that breaks
+a file in `Mods/__core__` kills the server on startup. Check `docker compose logs`
+for `error CS` after adding anything.
 
 ### Ports
 

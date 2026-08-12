@@ -1,0 +1,28 @@
+# Mod IDs that scripts/fetch-mods.sh skips, and why. Delete a line to try the mod
+# again — the reasons below are what the server's own compiler reported on Eco 0.14.
+
+2057641  easy-logging-v2 — built against an older Eco API (Vector3, IInteractableObject,
+         InteractionContext and Eco.Gameplay.Systems.Tooltip no longer resolve).
+         easy-logging-mining-v11 covers the same ground and compiles clean.
+
+118291   clean-smelting — packaged in the pre-UserCode layout (Mods/AutoGen/...), which the
+         server refuses to load, and its target files no longer exist in Mods/__core__.
+
+4891722  elixrmods-trucking — references TailingsReportComponent, a type Eco 0.14 no longer
+         has (the current equivalent is TailingsSourcesTooltip). Needs updating by its author.
+
+797352   hot-wheels — same TailingsReportComponent problem, on its vehicle classes.
+
+2828253  gas-pump-station — written against an older API: StoreComponent, RecipeFamily and
+         SolidAttachedSurfaceRequirementComponent no longer resolve, and DisplayDescription
+         and RequiresSurfaceOnSides are no longer overridable.
+
+136025   nysolarpanels — published for Eco 10.1.x. The Electronics talent classes it uses
+         (ElectronicsLavishResourcesTalent, ElectronicsFocusedSpeedTalent,
+         ElectronicsParallelSpeedTalent) do not exist in 0.14.
+
+5168429  vehicle-tuning — all-or-nothing, and both halves fail on 0.14. Its Truck and
+         SteamTruck overrides make the game's own Migrations/TruckStorageToFlatbedMigration.cs
+         stop compiling, and dropping just those two leaves its precompiled
+         VehicleTuning/MechanicExpansion.dll registering a second TruckObject, which throws
+         "An item with the same key has already been added" before the world loads.
