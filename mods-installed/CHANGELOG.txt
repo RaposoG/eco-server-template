@@ -1,0 +1,8 @@
+Starter Rewards v1.0.0
+
+- Combined starter money and starter specialty stars into one plugin.
+- Added one shared configuration file.
+- Added enable/disable switches for money and stars.
+- Added configurable welcome message placeholders.
+- Added English admin commands.
+- Added PingPerfect installation instructions.

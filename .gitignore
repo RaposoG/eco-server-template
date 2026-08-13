@@ -1,10 +1,11 @@
 .env
 
-# Downloaded mods. Configs/ModKit.eco lists the mod IDs and scripts/fetch-mods.sh
-# reproduces both folders, so there is no reason to commit a few hundred MB of
-# other people's work. Delete these two lines to ship a repo with the mods included.
+# Download cache for scripts/fetch-mods.sh — regenerable, no reason to ship it.
 mods/
-mods-installed/
+
+# mods-installed/ IS committed on purpose: the deploy clones this repo and mounts
+# the folder straight into the container, so leaving it out ships a server with no
+# mods and no error to tell you. Run scripts/fetch-mods.sh to rebuild it.
 
 # Third-party blueprint from mod.io — belongs to its author, not this repo.
 blueprints/
