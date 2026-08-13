@@ -57,7 +57,7 @@
     16,
     300
   ],
-  "BasePlotsOnHomesteadClaimStake": 16,
+  "BasePlotsOnHomesteadClaimStake": 36,
   "BasePlotsOnOutpostClaimStake": 16,
   "HoursToResolvePropertyCrisis": [
     24.0,
