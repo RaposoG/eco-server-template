@@ -20,7 +20,7 @@
   "SettlementClaimsPerCitizen": [
     10.0,
     20.0,
-    40.0
+    120.0
   ],
   "SettlementClaimsPerAbandonedCitizen": [
     5.0,
@@ -55,7 +55,7 @@
   "BasePlotsOnFoundation": [
     9,
     16,
-    25
+    100
   ],
   "BasePlotsOnHomesteadClaimStake": 16,
   "BasePlotsOnOutpostClaimStake": 16,
@@ -64,12 +64,12 @@
     24.0,
     24.0
   ],
-  "AllowOptionToPreventSettlementsFromSeceding": false,
+  "AllowOptionToPreventSettlementsFromSeceding": true,
   "CultureDeedLinkPercentRequirement": 30.0,
   "SettlementFoundationBaseInfluence": [
     45.0,
     150.0,
-    400.0
+    1600.0
   ],
   "SettlementInfluenceMultiplier": [
     1.0,
