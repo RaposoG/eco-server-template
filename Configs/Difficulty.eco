@@ -29,7 +29,7 @@
       "WeightMultiplier": 0.5,
       "FuelEfficiencyMultiplier": 2.0,
       "GrowthRateMultiplier": 2.0,
-      "ConnectionRangeMultiplier": 1.5,
+      "ConnectionRangeMultiplier": 10.0,
       "ShelfLifeMultiplier": 2.0,
       "AllowDeepOceanBuilding": true,
       "RequireSkillsToReplaceParts": false,
