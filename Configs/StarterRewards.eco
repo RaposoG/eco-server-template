@@ -1,7 +1,7 @@
 {
   "OnlyOnFirstLogin": true,
   "EnableStarterMoney": true,
-  "CurrencyName": "Creditos",
+  "CurrencyName": "Real",
   "StartingAmount": 800.0,
   "EnableStarterStars": true,
   "NumberOfStars": 2,

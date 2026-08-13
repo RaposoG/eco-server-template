@@ -11,6 +11,9 @@ services:
       ECO_TOKEN: ${ECO_TOKEN:-}
       # Log timestamps and the in-game clock follow this, not the host's UTC.
       TZ: ${TZ:-America/Sao_Paulo}
+      # Public IP or hostname players reach this server at. Without it a Dockerised
+      # server advertises an address the server browser cannot ping.
+      ECO_REMOTE_ADDRESS: ${ECO_REMOTE_ADDRESS:-}
     # Eco logs constantly. Docker's default json-file driver never rotates, so on a
     # long-running server the log grows until it fills the disk and takes the box
     # with it — the classic way a game server VPS dies at 3am.

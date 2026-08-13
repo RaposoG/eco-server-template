@@ -29,6 +29,14 @@ if [ -d /config-src ]; then
   # Insert them back rather than leaving empty placeholders in git: these fields are
   # typed as Guid, and an empty string is not a valid one — the server dies reading
   # the config with "Unrecognized Guid format" before it starts. Absent is fine.
+  # A server behind Docker NAT does not know its own public address, so it advertises
+  # the container's internal one and the server browser's ping lands nowhere — which
+  # costs -1000 in the listing score. Set ECO_REMOTE_ADDRESS to the public IP or host.
+  if [ -n "${ECO_REMOTE_ADDRESS:-}" ]; then
+    sed -i "s|\"RemoteAddress\"[[:space:]]*:[[:space:]]*\"[^\"]*\"|\"RemoteAddress\": \"$ECO_REMOTE_ADDRESS\"|" /app/Configs/Network.eco
+    echo "[entrypoint] advertising remote address: $ECO_REMOTE_ADDRESS"
+  fi
+
   if [ -n "$keep_id" ]; then
     sed -i "1s|^{|{\n  \"ID\": \"$keep_id\",\n  \"Passport\": \"$keep_passport\",|" /app/Configs/Network.eco
     echo "[entrypoint] kept this server's existing identity"
