@@ -59,6 +59,19 @@ if [ -d /mods-installed ] && [ -n "$(ls -A /mods-installed 2>/dev/null)" ]; then
   echo "[entrypoint] mods installed: $(ls /app/Mods/UserCode | wc -l) entries in Mods/UserCode"
 fi
 
+# Our own overrides go on last so they beat anything a downloaded mod ships, and so
+# fetch-mods.sh rebuilding mods-installed/ from scratch cannot drop them.
+if [ -d /mods-custom ]; then
+  find /mods-custom -name '*.cs' -exec sh -c '
+    for f do
+      rel=${f#/mods-custom/}
+      mkdir -p "/app/Mods/UserCode/$(dirname "$rel")"
+      cp "$f" "/app/Mods/UserCode/$rel"
+    done
+  ' sh {} +
+  echo "[entrypoint] custom overrides: $(find /mods-custom -name '*.cs' | wc -l)"
+fi
+
 # The server refuses to boot without authentication; fall back to offline mode.
 AUTH=${ECO_TOKEN:+-userToken=$ECO_TOKEN}
 exec ./EcoServer --nogui ${AUTH:--offline}

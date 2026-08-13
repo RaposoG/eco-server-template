@@ -48,6 +48,8 @@ services:
       # inside /app/Storage — already a volume, so schematics persist with the world.
       # The repo copy is seeded from here on start.
       - ./Blueprints:/blueprints-src:ro
+      # Our own overrides, applied after the downloaded mods so they win.
+      - ./mods-custom:/mods-custom:ro
       - ./scripts/entrypoint.sh:/entrypoint.sh:ro
       # Built by scripts/fetch-mods.sh; copied into /app on every start.
       - ./mods-installed:/mods-installed:ro
