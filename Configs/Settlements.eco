@@ -78,7 +78,7 @@
   ],
   "ScaleInfluenceBasedOnWorldSize": true,
   "BaseInfluenceRadiusFoundationMovementAllowedAfterFounding": 50,
-  "SettlementMinRequiredPlotCoveragePercentage": 0.2,
+  "SettlementMinRequiredPlotCoveragePercentage": 0.0,
   "HomesteadMinRequiredPlotCoveragePercentage": 0.5,
   "MinSubSettlementsToFoundSettlement": [
     0,

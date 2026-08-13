@@ -31,7 +31,7 @@
       "GrowthRateMultiplier": 2.0,
       "ConnectionRangeMultiplier": 1.5,
       "ShelfLifeMultiplier": 2.0,
-      "AllowDeepOceanBuilding": false,
+      "AllowDeepOceanBuilding": true,
       "RequireSkillsToReplaceParts": false,
       "BrokenPartsWillDisableVehicles": false,
       "AnimalUnprovokedAttackFrequencyMultiplier": 1.0
