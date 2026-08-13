@@ -1,7 +1,7 @@
 {
   "AutoShutdownHour": 3,
   "AutoShutdownMessage": "Reinicio automatico diario do servidor. Ele volta em instantes.",
-  "ReasonForAutoShutdown": "Reinicio diario",
+  "ReasonForAutoShutdown": "Restart",
   "CountdownStart": 30,
   "CountdownIntervals": [
     15,
