@@ -37,14 +37,18 @@ fi
 
 # Schematics shipped with the repo are seeded once. Anything you save in game
 # afterwards stays in the volume and is not overwritten by a redeploy.
+# EcoWorldEdit looks for schematics in StorageDirectory/Blueprints, not /app/Blueprints
+# — confirmed in its GetSchematicDirectory(), which does Path.Combine on the storage
+# config. That folder is inside the world volume, so what you save in game persists.
 if [ -d /blueprints-src ]; then
-  mkdir -p /app/Blueprints
+  bp_dir=/app/Storage/Blueprints
+  mkdir -p "$bp_dir"
   for bp in /blueprints-src/*.ecobp; do
     [ -e "$bp" ] || continue
-    target=/app/Blueprints/$(basename "$bp")
+    target=$bp_dir/$(basename "$bp")
     [ -f "$target" ] || cp "$bp" "$target"
   done
-  echo "[entrypoint] blueprints available: $(ls /app/Blueprints 2>/dev/null | wc -l)"
+  echo "[entrypoint] blueprints available: $(ls "$bp_dir" 2>/dev/null | wc -l)"
 fi
 
 # Mods are copied in on every start rather than baked into a volume, so they

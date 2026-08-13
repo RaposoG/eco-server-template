@@ -43,9 +43,10 @@ services:
       # exception — they hold this server's ID/Passport and the admin list, so they
       # live only in the volume and are seeded once from their .example.
       - ./Configs:/config-src:ro
-      # EcoWorldEdit reads .ecobp schematics from /app/Blueprints and writes the
-      # ones you save in game there too, so it is a volume seeded from the repo.
-      - eco-blueprints:/app/Blueprints
+      # EcoWorldEdit resolves its schematic folder as
+      # Path.Combine(StorageManager.Config.StorageDirectory, "Blueprints"), which lands
+      # inside /app/Storage — already a volume, so schematics persist with the world.
+      # The repo copy is seeded from here on start.
       - ./Blueprints:/blueprints-src:ro
       - ./scripts/entrypoint.sh:/entrypoint.sh:ro
       # Built by scripts/fetch-mods.sh; copied into /app on every start.
@@ -57,4 +58,3 @@ services:
 volumes:
   eco-storage:
   eco-configs:
-  eco-blueprints:
