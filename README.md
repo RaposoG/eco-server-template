@@ -78,6 +78,13 @@ tooling wipes the host folder on each deploy, so anything that has to survive on
 — the world, the backups, the server's identity — belongs in a volume. The host
 folder holds only what git already has.
 
+**Recreate the container, do not just restart it.** A deploy that re-clones or runs
+`git reset --hard` replaces the `Configs` directory, so it gets a new inode while the
+running container's bind mount still points at the old one. The mount stays listed and
+looks fine, `/config-src` is simply empty, and the server quietly keeps running the
+config already in its volume — no error anywhere. `docker compose up -d
+--force-recreate` reattaches it.
+
 The consequence worth knowing: editing a config **on the server** is temporary,
 because the next start copies the repo version back over it. Settings you want to
 change per-machine without a commit go in `.env` instead — that is what
