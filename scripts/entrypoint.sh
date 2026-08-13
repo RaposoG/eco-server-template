@@ -35,6 +35,18 @@ if [ -d /config-src ]; then
   fi
 fi
 
+# Schematics shipped with the repo are seeded once. Anything you save in game
+# afterwards stays in the volume and is not overwritten by a redeploy.
+if [ -d /blueprints-src ]; then
+  mkdir -p /app/Blueprints
+  for bp in /blueprints-src/*.ecobp; do
+    [ -e "$bp" ] || continue
+    target=/app/Blueprints/$(basename "$bp")
+    [ -f "$target" ] || cp "$bp" "$target"
+  done
+  echo "[entrypoint] blueprints available: $(ls /app/Blueprints 2>/dev/null | wc -l)"
+fi
+
 # Mods are copied in on every start rather than baked into a volume, so they
 # survive both `--force-recreate` and an image update (the game's own content
 # lives in /app/Mods/__core__ and must come from the image, not from a volume).

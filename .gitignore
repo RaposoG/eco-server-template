@@ -10,5 +10,4 @@
 # the folder straight into the container, so leaving it out ships a server with no
 # mods and no error to tell you. Run scripts/fetch-mods.sh to rebuild it.
 
-# Third-party blueprint from mod.io — belongs to its author, not this repo.
-/blueprints/
+# Blueprints/ ships: EcoWorldEdit reads .ecobp schematics from that folder.
