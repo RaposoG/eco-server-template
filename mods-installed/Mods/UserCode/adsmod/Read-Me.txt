@@ -1,0 +1,18 @@
+/// Mod created by Plex
+// Updated on 04/19/2026
+
+Mod Details:
+
+AdsMod adds three billboards to the game, giving players the ability to display the image of their choice using the printer system.
+
+- Large Format Billboard
+- Urban Billboard
+- Mobile Poster
+
+Usage:
+
+Usage is very simple. Each item can be crafted from the mechanics table. You can also find each item in the Ecopedia.
+
+Installation:
+
+Place the "AdsMod_YOURLANGUAGE" folder in the "/Mods/UserCode" folder and also add the "Assets" folder to "/Mods/UserCode".

@@ -1,0 +1,19 @@
+/// Mod créé par Plex \\\
+// Mise à jour le 19/04/2026
+
+Détails du mod :
+
+AdsMod ajoute au jeu trois panneaux publicitaires, offrant aux joueurs la possibilité d’y afficher l’image de leur choix grâce au système d’imprimante.
+
+- Panneau Grand Format
+- Panneau Urbain
+- Affiche Mobile
+
+Utilisation :
+
+L'utilisation est très simple. Chaque élément peut être fabriqué à partir de la table de mécanique. Vous pouvez également retrouver chaque élément dans l'Ecopédia.
+
+
+Installation :
+
+Placer le dossier "AdsMod_VOTRELANGUE" dans le dossier "/Mods/UserCode" et ajouter également le dossier "Assets" dans "/Mods/UserCode".

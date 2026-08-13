@@ -1,0 +1,69 @@
+Tailings Mod change log file
+
+Changed V14.0_0.1.9   08/08/2026
+Updated compatability with version 14.0
+Lowered the Quantities on the Kiln and added the same recipes to the Incinerator 
+Incinerator - reassigned the tasks to the RecyclerSkill 
+increased the output on incinerator because it has no upgrades and the Recycler also has no Talent choices
+
+Changed V13.1.1_0.1.8  03/27/2026
+Updated compatability with version 13.0
+
+Changed V12.0_0.1.7  10/08/2025
+Compatable with Version 12.0
+
+Changed V11.1.1_0.1.5  11/06/2024
+corrected typo in Mod Registration
+
+Changed V11.1.1_0.1.5  02/28/2025
+Updated compatibility with Eco version 0.11.1.10
+
+Changed V11.1.1_0.1.4  11/04/2024
+Added Mod Registration
+
+Changed V11.1_0.1.3
+Adjusted the Calories Experience and Time on all recipes. 
+Sulfur from Slag, Kiln added as part of 11.1 new material. 
+
+Changes to the Wt Tailings Mods on the Kiln
+Files location in \Eco Server\Mods\UserCode\GadgetPaPa\Tailings\
+If you weould like some bulk recipes to go with this mod check out the View Other Version link under the download button.
+
+Changed V11_0.1.2
+Removed unneeded lines with elements about the blocks in all files.
+
+Changed V11_0.1.1
+Added DirtTailingsΝeutralizer  6/2/24 
+All still work in version 11 
+
+
+Changed all below to work in V10.0  11/18/23
+
+Changed date 11/10/23
+Lowered the craft time by half, Was  .5 min now .25 min on all 5 recipes
+	this.CraftMinutes = CreateCraftTimeValue(typeof(DryTailings), 0.25f, typeof(PotterySkill), typeof(PotteryFocusedSpeedTalent), typeof(PotteryParallelSpeedTalent));     
+Dry Tailing
+	Lowered the Labor cost from 20 to 10
+       this.LaborInCalories = CreateLaborInCaloriesValue(10, typeof(PotterySkill)); 
+Sand Dry Tailings 
+	Changed crafting Sand from 1 to 2
+		new CraftingElement<SandItem>(2),  // 1
+Clay Dry Tailings
+	Changed crafting Clay from 1 to 2
+		new CraftingElement<ClayItem>(2),  // 1
+Clay 
+	Decreased the amount of dirt in the Recipe from 12 to 2
+		new IngredientElement(typeof(DirtItem), 2, typeof(PotterySkill), typeof(PotteryLavishResourcesTalent)), 
+	Changed crafting Clay from 1 to 2
+		new CraftingElement<ClayItem>(2),   // 1
+	Lowered the Labor cost from 20 to 10
+       this.LaborInCalories = CreateLaborInCaloriesValue(10, typeof(PotterySkill)); 
+Sand created 11/10/23
+	See clay copied it to make Sand.
+	
+Original Mod created 11/10/23 V9.7.13_0.1.0
+ClayBlock	
+DryTailings
+DryTailingEutralizer
+SandBlock
+WetTailingsEutralizer

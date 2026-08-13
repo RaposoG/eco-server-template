@@ -1,11 +1,14 @@
 .env
 
+# Leading slashes matter: an unanchored "mods/" also matches mods-installed/Mods/,
+# which silently drops every mod file from the repo.
+
 # Download cache for scripts/fetch-mods.sh — regenerable, no reason to ship it.
-mods/
+/mods/
 
 # mods-installed/ IS committed on purpose: the deploy clones this repo and mounts
 # the folder straight into the container, so leaving it out ships a server with no
 # mods and no error to tell you. Run scripts/fetch-mods.sh to rebuild it.
 
 # Third-party blueprint from mod.io — belongs to its author, not this repo.
-blueprints/
+/blueprints/
