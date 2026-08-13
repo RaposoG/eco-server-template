@@ -145,6 +145,25 @@ find mods-installed -type d | while read -r d; do
   esac
 done
 
+# EcoWorldEdit names a chat command "export", and Eco 0.14 has one of its own now.
+# ChatCommandService keys commands in a dictionary, so the duplicate throws before the
+# server finishes starting. The mod ships compiled and its public source stopped at Eco
+# 0.8 in 2019, so the name is renamed in place. Command names live in the attribute blob
+# as length-prefixed UTF-8 (\x06export), and the replacement must be exactly as long —
+# a different length would need the prefix changed and every later offset shifted.
+we_dll=mods-installed/Mods/UserCode/EcoWorldEdit/EcoWorldEdit.dll
+if [ -f "$we_dll" ]; then
+  before=$(wc -c < "$we_dll")
+  perl -0777 -pi -e 's/\x06export/\x06bpsave/' "$we_dll"
+  after=$(wc -c < "$we_dll")
+  if [ "$before" != "$after" ]; then
+    echo "  !! EcoWorldEdit patch changed the file size ($before -> $after), removing it"
+    rm -rf "$(dirname "$we_dll")"
+  else
+    echo "  patched EcoWorldEdit: /export -> /bpsave"
+  fi
+fi
+
 if [ -f mods-remove.txt ]; then
   grep -vE '^[[:space:]]*(#|$)' mods-remove.txt | while read -r path; do
     [ -e "mods-installed/Mods/UserCode/$path" ] || continue

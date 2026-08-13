@@ -1,13 +1,6 @@
 # Mod IDs that scripts/fetch-mods.sh skips, and why. Delete a line to try the mod
 # again — the reasons below are what the server's own compiler reported on Eco 0.14.
 
-1015897  ecoworldedit — registers a chat command named "export", which Eco 0.14 now has of
-         its own (see the DataExporter plugin). ChatCommandService keys commands in a
-         dictionary, so the duplicate throws "An item with the same key has already been
-         added. Key: export" and the server never finishes starting. Nothing else here
-         reads .ecobp schematics, so re-enabling this is the only way to place one —
-         worth rechecking when the mod is updated.
-
 2057641  easy-logging-v2 — built against an older Eco API (Vector3, IInteractableObject,
          InteractionContext and Eco.Gameplay.Systems.Tooltip no longer resolve).
          easy-logging-mining-v11 covers the same ground and compiles clean.
