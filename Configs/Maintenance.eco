@@ -1,0 +1,11 @@
+{
+  "AutoShutdownHour": 3,
+  "AutoShutdownMessage": "Reinicio automatico diario do servidor. Ele volta em instantes.",
+  "ReasonForAutoShutdown": "Reinicio diario",
+  "CountdownStart": 30,
+  "CountdownIntervals": [
+    15,
+    10,
+    5
+  ]
+}

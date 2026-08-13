@@ -1,10 +1,10 @@
 {
   "PublicServer": true,
   "Playtime": "24/7",
-  "DiscordAddress": "",
+  "DiscordAddress": "https://discord.gg/UvCduCXKqr",
   "Password": "",
-  "Name": "<color=#FFDF00>BBC-BRASIL</color> <color=#546E7A>|</color> <color=#40C4FF>MODS</color> <color=#546E7A>|</color> <color=#FFA726>METEORO 90 DIAS</color> <color=#546E7A>|</color> <color=#00E676>SEM MOAGEM</color>",
-  "DetailedDescription": "Servidor brasileiro com mods e progressao acelerada.\n\nMeteoro em 90 dias, tempo de sobra para construir a economia sem correria.\n\nSem moagem: metade dos recursos e do tempo em todas as receitas, skills pela metade do custo, pilhas dobradas, itens com metade do peso e plantio o dobro mais rapido. Exaustao desligada.\n\nMods instalados: moveis, armazenamento, hidroponia, pecuaria, mixologia, ferramentas melhoradas, extensao de estradas, torre de agua, moeda global e mais.\n\nEntre e construa junto.",
+  "Name": "<color=#FFDF00>BBC-BRASIL</color> <color=#546E7A>|</color> <color=#40C4FF>MODS</color> <color=#546E7A>|</color> <color=#FFA726>METEORO 90 DIAS</color> <color=#546E7A>|</color> <color=#ECEFF1>Sem</color> <color=#00E676>MI</color><color=#FFDF00>MI</color><color=#40C4FF>MI</color>",
+  "DetailedDescription": "Servidor brasileiro com mods e progressao acelerada.\n\nMeteoro em 90 dias, tempo de sobra para construir a economia sem correria.\n\nSem MIMIMI: metade dos recursos e do tempo em todas as receitas, skills pela metade do custo, pilhas dobradas, itens com metade do peso e plantio o dobro mais rapido. Exaustao desligada.\n\nMods instalados: moveis, armazenamento, hidroponia, pecuaria, mixologia, ferramentas melhoradas, extensao de estradas, torre de agua, moeda global e mais.\n\nEntre e construa junto.",
   "ServerCategory": "Beginner",
   "IPAddress": "Any",
   "RemoteAddress": "",
