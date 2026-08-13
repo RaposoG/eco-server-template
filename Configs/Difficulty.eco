@@ -25,7 +25,7 @@
       "AreaBonusMinProfessionCitizens": 1,
       "SpecialtyRefundPercentage": 1.0,
       "GainCharacterExperienceWithSpecialtyExperience": 0.0,
-      "StackSizeMultiplier": 2.0,
+      "StackSizeMultiplier": 5.0,
       "WeightMultiplier": 0.5,
       "FuelEfficiencyMultiplier": 2.0,
       "GrowthRateMultiplier": 2.0,

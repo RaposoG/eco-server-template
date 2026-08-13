@@ -1,0 +1,9 @@
+{
+  "OnlyOnFirstLogin": true,
+  "EnableStarterMoney": true,
+  "CurrencyName": "Creditos",
+  "StartingAmount": 800.0,
+  "EnableStarterStars": true,
+  "NumberOfStars": 2,
+  "WelcomeMessage": "<color=green>Bem-vindo ao BBC-BRASIL!</color> Voce recebeu {money} {currency} e {stars} estrela(s) de especialidade. Bom jogo!"
+}

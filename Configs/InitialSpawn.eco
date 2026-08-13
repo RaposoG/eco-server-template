@@ -6,9 +6,9 @@
   "AdditionalSpawnPoints": [{
     "Enabled": true,
     "Position": {
-      "x": 360,
+      "x": 720,
       "y": 0,
-      "z": 360
+      "z": 720
     },
     "Name": "Capital BBC-BRASIL",
     "Description": "Centro do mundo e ponto de encontro do servidor. Comece aqui para ficar perto de todo mundo.",

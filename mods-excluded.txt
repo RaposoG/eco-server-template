@@ -21,6 +21,14 @@
          (ElectronicsLavishResourcesTalent, ElectronicsFocusedSpeedTalent,
          ElectronicsParallelSpeedTalent) do not exist in 0.14.
 
+3593204  globalcurrency — a second mod that creates a server currency, on top of the one
+         StarterRewards creates. Two currency-creating mods register a currency against the
+         same owner, and CurrencyManager.Initialize() then dies on the next load with
+         "An item with the same key has already been added. Key: <player>", crash-looping the
+         server. Naming both currencies the same does NOT merge them — it is what triggers it.
+         Pick one currency mod. StarterRewards is the one kept here because it also grants
+         specialty stars.
+
 5168429  vehicle-tuning — all-or-nothing, and both halves fail on 0.14. Its Truck and
          SteamTruck overrides make the game's own Migrations/TruckStorageToFlatbedMigration.cs
          stop compiling, and dropping just those two leaves its precompiled

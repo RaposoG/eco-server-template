@@ -1,0 +1,11 @@
+# Mod folders whose recipes should be craftable without the profession the author
+# required. The [RequiresSkill(...)] attribute is stripped after extraction; the
+# skill still governs calorie cost, craft time and ingredient discounts, so a
+# specialist stays better at it — anyone can just do it at all.
+#
+# Paths are relative to Mods/UserCode. Delete a line to give the gate back.
+
+# Turning mining tailings into clay, sand, dirt and sulfur. Gated behind Pottery 1
+# and Recycling 1 by default, which blocks newcomers from cleaning up their own
+# mining waste until someone takes those professions.
+GadgetPaPa/Tailings

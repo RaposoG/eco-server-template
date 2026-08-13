@@ -146,6 +146,19 @@ if [ -f mods-remove.txt ]; then
   done
 fi
 
+if [ -f mods-unlock-skills.txt ]; then
+  grep -vE '^[[:space:]]*(#|$)' mods-unlock-skills.txt | while read -r path; do
+    target="mods-installed/Mods/UserCode/$path"
+    [ -e "$target" ] || continue
+    files=$(grep -rlE '^[[:space:]]*\[RequiresSkill\(' "$target" 2>/dev/null || true)
+    [ -z "$files" ] && continue
+    printf '%s\n' "$files" | while read -r f; do
+      sed -i -E '/^[[:space:]]*\[RequiresSkill\(/d' "$f"
+    done
+    echo "  unlocked $path ($(printf '%s\n' "$files" | grep -c .) files)"
+  done
+fi
+
 # Eco renames item tags between versions. A mod published before a rename still
 # references the old name as a string, and the server aborts before loading the
 # world with "Tag 'X' not found" — a runtime failure, so nothing in the build

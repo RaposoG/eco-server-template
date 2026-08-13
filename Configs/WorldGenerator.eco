@@ -4,8 +4,8 @@
   "MapSizePreset": "Small",
   "Dimensions": {
     "$id": "2",
-    "WorldWidth": 72,
-    "WorldLength": 72
+    "WorldWidth": 144,
+    "WorldLength": 144
   },
   "WaterLevel": 60,
   "MaxGenerationHeight": 120,

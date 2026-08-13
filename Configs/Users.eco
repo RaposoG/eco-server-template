@@ -10,9 +10,9 @@
   "NearbyFoodSpawnCount": 5,
   "UseExactSpawnLocation": false,
   "SpawnLocation": {
-    "x": 360,
+    "x": 720,
     "y": 0,
-    "z": 360
+    "z": 720
   },
   "SpawnSearchRange": 80,
   "MovementHackDetection": false,

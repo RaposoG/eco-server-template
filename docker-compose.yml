@@ -9,20 +9,40 @@ services:
       # Passed as an env var, not a command-line argument, so the token does not
       # show up in `docker inspect` / `ps` output.
       ECO_TOKEN: ${ECO_TOKEN:-}
+      # Log timestamps and the in-game clock follow this, not the host's UTC.
+      TZ: ${TZ:-America/Sao_Paulo}
+    # Eco logs constantly. Docker's default json-file driver never rotates, so on a
+    # long-running server the log grows until it fills the disk and takes the box
+    # with it — the classic way a game server VPS dies at 3am.
+    logging:
+      driver: json-file
+      options:
+        max-size: "10m"
+        max-file: "3"
     # Fixes the image's Steam lookup, installs mods, then starts the server.
     command: sh /entrypoint.sh
     # Eco saves the world on SIGTERM — give it room to finish.
     stop_grace_period: 120s
+    # Without a limit, an Eco memory spike takes the whole VPS down with it, sshd
+    # included. With one, Docker kills just this container and restart brings it back.
+    # Leave headroom for the host: roughly 75% of the box.
+    mem_limit: ${MEM_LIMIT:-24g}
     ports:
       - "${GAME_PORT:-3000}:3000/udp" # game
       - "${WEB_PORT:-3001}:3001/tcp" # web UI / API
       # - "3002:3002/tcp"               # RCON (set RconPassword in Network.eco first)
       - "3003:3003/udp" # Steam query, needed for the Steam server browser
     volumes:
+      # Anything that must survive a deploy is a named volume, never a host folder:
+      # PaaS tooling (Dokploy and friends) wipes the host folder on every update, and
+      # backups, saves and the server's own identity would go with it.
       - eco-storage:/app/Storage
-      # Configs live in the repo so you can edit them in an editor and diff them.
-      # The world save stays in a named volume — it is large, binary and churns.
-      - ./Configs:/app/Configs
+      - eco-configs:/app/Configs
+      # The repo is the source of truth for tuned settings; the entrypoint copies
+      # these over the live config on every start. Network.eco and Users.eco are the
+      # exception — they hold this server's ID/Passport and the admin list, so they
+      # live only in the volume and are seeded once from their .example.
+      - ./Configs:/config-src:ro
       - ./scripts/entrypoint.sh:/entrypoint.sh:ro
       # Built by scripts/fetch-mods.sh; copied into /app on every start.
       - ./mods-installed:/mods-installed:ro
@@ -32,3 +52,4 @@ services:
 
 volumes:
   eco-storage:
+  eco-configs:

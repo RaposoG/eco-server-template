@@ -64,13 +64,29 @@ and `ps` output.
 
 ### Game settings
 
-Game settings are plain JSON in `./Configs`, bind-mounted into the container.
-Edit a file, `docker compose restart`, done — no volume gymnastics.
+Game settings are plain JSON in `./Configs`, versioned in git. You prepare them
+where you develop, commit, and the deploy runs exactly those files: the container
+copies `./Configs` over its live config on every start.
 
 ```bash
 $EDITOR Configs/Difficulty.eco
-docker compose restart
+docker compose up -d --force-recreate
 ```
+
+The live config itself lives in a **named volume**, never a host folder. PaaS
+tooling wipes the host folder on each deploy, so anything that has to survive one
+— the world, the backups, the server's identity — belongs in a volume. The host
+folder holds only what git already has.
+
+The consequence worth knowing: editing a config **on the server** is temporary,
+because the next start copies the repo version back over it. Settings you want to
+change per-machine without a commit go in `.env` instead — that is what
+`GAME_PORT` and `WEB_PORT` are for.
+
+The one exception is the server's `ID` and `Passport` in `Network.eco`. They are
+committed empty on purpose: the server generates them on first boot, and the
+entrypoint carries them across each config refresh. Without that the server would
+look like a brand new one to the server browser after every restart.
 
 `Network.eco` holds the server name, description, password and ports.
 `Difficulty.eco` holds the meteor timer and every progression multiplier.
@@ -82,12 +98,8 @@ intend to keep.
 The `.eco.template` files next to them are the server's own defaults: useful to
 diff against when you want to know what you changed.
 
-`Configs/Network.eco` is gitignored because the server writes an `ID` and a
-`Passport` into it that identify your server to Strange Cloud. The repo ships
-`Network.eco.example`, and the entrypoint copies it on a fresh checkout.
-
 This template comes tuned rather than vanilla — meteor at 90 days, halved craft
-resources, craft time and skill cost, doubled stack sizes, growth rate, fuel
+resources, craft time and skill cost, 5× stack sizes, doubled growth rate, fuel
 efficiency and shelf life, halved item weight, exhaustion off, and full
 specialty refunds. Reset any of it by copying the value back from the matching
 `.eco.template`.
