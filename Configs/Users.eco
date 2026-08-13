@@ -57,7 +57,9 @@
       "Collection": {
         "System.String": {
           "$type": "System.Collections.Generic.List`1[[System.String, System.Private.CoreLib]], System.Private.CoreLib",
-          "$values": []
+          "$values": [
+            "76561199113956986"
+          ]
         }
       }
     },
