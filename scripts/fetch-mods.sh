@@ -17,7 +17,14 @@ if [ -f .env ]; then set -a; . ./.env; set +a; fi
 
 command -v unzip >/dev/null || { echo "unzip is required"; exit 1; }
 
-mkdir -p mods mods-installed
+mkdir -p mods
+
+# Rebuild the install tree from scratch every run. Extracting over the previous one
+# leaves files behind from mods you have since excluded, so the exclusion appears to
+# work while the mod is still loaded. Everything here comes from the cached archives
+# in ./mods, so this costs nothing.
+rm -rf mods-installed
+mkdir -p mods-installed
 
 ids=$(grep -oE '^[[:space:]]*[0-9]{4,},?$' Configs/ModKit.eco | tr -d ' ,')
 total=$(printf '%s\n' "$ids" | wc -l | tr -d ' ')
