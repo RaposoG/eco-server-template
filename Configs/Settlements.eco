@@ -18,9 +18,9 @@
     "OutputLimit": 2.0
   },
   "SettlementClaimsPerCitizen": [
-    10.0,
     20.0,
-    120.0
+    60.0,
+    300.0
   ],
   "SettlementClaimsPerAbandonedCitizen": [
     5.0,
@@ -28,9 +28,9 @@
     5.0
   ],
   "HomesteadSupportClaimsPerCitizen": [
-    5.0,
-    5.0,
-    5.0
+    10.0,
+    10.0,
+    10.0
   ],
   "HomesteadSupportClaimsPerAbandonedCitizen": [
     3.0,
@@ -38,9 +38,9 @@
     3.0
   ],
   "ClaimStakesPerCitizen": [
-    1.5,
-    1.5,
-    1.5
+    3.0,
+    4.0,
+    8.0
   ],
   "ClaimStakesPerAbandonedCitizen": [
     0.5,
