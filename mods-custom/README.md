@@ -8,7 +8,6 @@ from scratch on every run.
 Paths mirror `Mods/__core__`, because that is how the game matches a
 `*.override.cs` to the file it replaces.
 
-- `Player/PlayerDefaults.override.cs` — base carry weight raised to 80 kg.
 - `AutoGen/Tool/*Shovel.override.cs` — MaxTake per tier: 10 / 20 / 30 / 50. Copies of
   the enis-better-shovels files with only that number changed, so re-running
   fetch-mods.sh cannot revert them.
