@@ -4,7 +4,7 @@
   "AllowDebugCalls": false,
   "UnStuckDisableTime": 60.0,
   "FreecarDisableTime": 60.0,
-  "AdminCommandsLoggingLevel": "LogFileAndNotifyEveryone",
+  "AdminCommandsLoggingLevel": "LogFileAndNotifyAdmins",
   "DelayNearbyFoodCheckMinutes": 4.0,
   "NearbyFoodSpawnLocationRadius": 20.0,
   "NearbyFoodSpawnCount": 5,
