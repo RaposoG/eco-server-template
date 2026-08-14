@@ -2,7 +2,7 @@
   "GameSettings": {
     "DesiredNumberOfPlayers": 10,
     "HoursPlayedPerDay": 3.0,
-    "CollaborationLevel": "MediumCollaboration",
+    "CollaborationLevel": "HighCollaboration",
     "GameSpeed": "Normal",
     "AnimalBehavior": "AttackNormally",
     "SimulationLevel": "Normal",
