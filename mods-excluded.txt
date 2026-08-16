@@ -1,36 +1,47 @@
-# Mod IDs that scripts/fetch-mods.sh skips, and why. Delete a line to try the mod
-# again — the reasons below are what the server's own compiler reported on Eco 0.14.
+# Mod IDs that scripts/fetch-mods.sh skips, and why.
+#
+# Every mod below has been ported to Eco 0.14 and compile-tested clean, alone and
+# alongside the full mod set. The patched sources live in mods-fix/<name>/ and are
+# NOT installed: they stay here until the server owner decides to turn them on.
+# To enable one, delete its line here and copy mods-fix/<name>/ over mods-installed/.
 
-2057641  easy-logging-v2 — built against an older Eco API (Vector3, IInteractableObject,
-         InteractionContext and Eco.Gameplay.Systems.Tooltip no longer resolve).
-         easy-logging-mining-v11 covers the same ground and compiles clean.
+2057641  easy-logging-v2 — NOT portable. It replaces Objects/TreeObject.cs, the exact file
+         easy-logging-mining-v11 already replaces, and only one override of a core file can
+         exist. v11 is the current version and also ships the pickaxe half. Nothing to fix:
+         enabling v2 means removing v11.
 
-118291   clean-smelting — packaged in the pre-UserCode layout (Mods/AutoGen/...), which the
-         server refuses to load, and its target files no longer exist in Mods/__core__.
+4891722  elixrmods-trucking — fixed in mods-fix/elixr. Dropped [RequireComponent(
+         typeof(TailingsReportComponent))] from 8 trucks (type gone in 0.14) and the two
+         SurpassStackSize overrides (InventoryRestriction no longer declares it, so the
+         mining/logging trailers now respect normal stack sizes).
 
-4891722  elixrmods-trucking — references TailingsReportComponent, a type Eco 0.14 no longer
-         has (the current equivalent is TailingsSourcesTooltip). Needs updating by its author.
+797352   hot-wheels — fixed in mods-fix/hotwheels. Same dead TailingsReportComponent, removed
+         from Moto, SchoolBus and SteamPaddleCraft. Ships its own .unity3d, so clients without
+         the mod installed locally may not see the models.
 
-797352   hot-wheels — same TailingsReportComponent problem, on its vehicle classes.
+2828253  gas-pump-station — fixed in mods-fix/gaspump. Rewritten against 0.14: StoreComponent
+         moved to Eco.Gameplay.Components.Store and needs SharedLinkComponent before it, the
+         surface requirement is now OccupancyRequirementComponent + SideAttachedContext,
+         DisplayDescription became the [LocDescription] attribute, and the recipe uses the
+         current Recipe().Init(...) form.
 
-2828253  gas-pump-station — written against an older API: StoreComponent, RecipeFamily and
-         SolidAttachedSurfaceRequirementComponent no longer resolve, and DisplayDescription
-         and RequiresSurfaceOnSides are no longer overridable.
+136025   nysolarpanels — fixed in mods-fix/solar. 0.14 dropped the generic per-skill talents
+         (ElectronicsLavishResources / FocusedSpeed / ParallelSpeed); current recipes pass no
+         talent at all, so the five references were removed.
 
-136025   nysolarpanels — published for Eco 10.1.x. The Electronics talent classes it uses
-         (ElectronicsLavishResourcesTalent, ElectronicsFocusedSpeedTalent,
-         ElectronicsParallelSpeedTalent) do not exist in 0.14.
+3593204  globalcurrency — fixed in mods-fix/currency. It does not create a currency on load —
+         only /gc-create does. The real bug: it looked up the currency with an exact name
+         match, but Currency.Name carries an icon tag, so the lookup always missed and a
+         SECOND currency got created under the same owner. CurrencyManager.Initialize() then
+         died on the next load with "An item with the same key has already been added".
+         Lookup is now icon-tolerant. Ship its Configs/GlobalCurrency.eco with NewUsersGift 0
+         unless StarterRewards' StartingAmount is lowered to match, or new players get both.
 
-3593204  globalcurrency — a second mod that creates a server currency, on top of the one
-         StarterRewards creates. Two currency-creating mods register a currency against the
-         same owner, and CurrencyManager.Initialize() then dies on the next load with
-         "An item with the same key has already been added. Key: <player>", crash-looping the
-         server. Naming both currencies the same does NOT merge them — it is what triggers it.
-         Pick one currency mod. StarterRewards is the one kept here because it also grants
-         specialty stars.
-
-5168429  vehicle-tuning — all-or-nothing, and both halves fail on 0.14. Its Truck and
-         SteamTruck overrides make the game's own Migrations/TruckStorageToFlatbedMigration.cs
-         stop compiling, and dropping just those two leaves its precompiled
-         VehicleTuning/MechanicExpansion.dll registering a second TruckObject, which throws
-         "An item with the same key has already been added" before the world loads.
+5168429  vehicle-tuning — fixed in mods-fix/tuning, and the riskiest of the set. Its overrides
+         are empty stubs that delete the game's own carts and trucks so its precompiled
+         MechanicExpansion.dll can register replacements. 0.14 added two more core files that
+         reference the deleted types (Objects/Trucks.cs and Migrations/TruckStorageToFlatbed-
+         Migration.cs), so both got stub overrides too. The DLL itself referenced the dead
+         TailingsReportComponent; that TypeRef was renamed in place to VehicleCarrierComponent
+         (same 23-byte length, so no metadata offsets shift). Loads and starts clean, but
+         placing and driving a vehicle was never tested — that needs a client.
